@@ -161,11 +161,8 @@ RUN pip --no-cache-dir install \
 	# Install dependencies needed for object detection
 	CMD ["export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"]
 
-	# Install dependencies needed for object detection
-	CMD ["export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"]
-
-  # Expose Ports for TensorBoard (6006), Ipython (8888)
-  EXPOSE 6006 8888
+	# Export password as environment variable
+	ENV PASSWORD="12345"
 
   WORKDIR "/root"
   CMD ["/bin/bash"]
