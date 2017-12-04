@@ -136,7 +136,6 @@ RUN pip --no-cache-dir install \
   	ldconfig && \
   	echo 'ln /dev/null /dev/raw1394' >> ~/.bashrc
 
-
   # Set up notebook config
   COPY jupyter_notebook_config.py /root/.jupyter/
 
@@ -144,16 +143,10 @@ RUN pip --no-cache-dir install \
   COPY run_jupyter.sh /root/
 
 	# Copy object detection files
-	RUN git clone https://github.com/tensorflow/models.git
-
-	# Install dependencies needed for object detection
-	RUN apt-get update
-
-	# Install dependencies needed for object detection
-	RUN apt-get install protobuf-compiler python-pil python-lxml -y
-
-	# Install dependencies needed for object detection
-	RUN cd ~/models/research && \
+	RUN git clone https://github.com/tensorflow/models.git && \
+		apt-get update && \
+		apt-get install protobuf-compiler python-pil python-lxml -y && \
+		cd ~/models/research && \
 		protoc object_detection/protos/*.proto --python_out=. && \
 		export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slims
 
