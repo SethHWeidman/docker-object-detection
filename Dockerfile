@@ -143,10 +143,11 @@ RUN pip --no-cache-dir install \
   COPY run_jupyter.sh /root/
 
 	# Copy object detection files
-	RUN git clone https://github.com/tensorflow/models.git && \
-		apt-get update && \
-		apt-get install protobuf-compiler python-pil python-lxml -y && \
-		cd ~/models/research && \
+	RUN apt-get update && \
+		apt-get install protobuf-compiler python-pil python-lxml -y
+
+	RUN git clone https://github.com/tensorflow/models.git /root/models && \
+		cd /root/models/research && \
 		protoc object_detection/protos/*.proto --python_out=. && \
 		export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slims
 
