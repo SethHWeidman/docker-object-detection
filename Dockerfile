@@ -153,13 +153,9 @@ RUN pip --no-cache-dir install \
 	RUN apt-get install protobuf-compiler python-pil python-lxml -y
 
 	# Install dependencies needed for object detection
-	RUN cd ~/models/research
-
-	# Follow instructions to get object detection working
-	RUN protoc object_detection/protos/*.proto --python_out=.
-
-	# Follow instructions to get object detection working
-	RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+	RUN cd ~/models/research && \
+		protoc object_detection/protos/*.proto --python_out=. && \
+		export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slims
 
 	# Export password as environment variable
 	ENV PASSWORD="12345"
