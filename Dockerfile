@@ -144,22 +144,22 @@ RUN pip --no-cache-dir install \
   COPY run_jupyter.sh /root/
 
 	# Copy object detection files
-	CMD ["git clone https://github.com/tensorflow/models.git"]
+	RUN git clone https://github.com/tensorflow/models.git
 
 	# Install dependencies needed for object detection
-	CMD ["apt-get update"]
+	RUN apt-get update
 
 	# Install dependencies needed for object detection
-	CMD ["apt-get install protobuf-compiler python-pil python-lxml -y"]
+	RUN apt-get install protobuf-compiler python-pil python-lxml -y
 
 	# Install dependencies needed for object detection
-	CMD ["cd ~/models/research"]
+	RUN cd ~/models/research
 
-	# Install dependencies needed for object detection
-	CMD ["protoc object_detection/protos/*.proto --python_out=."]
+	# Follow instructions to get object detection working
+	RUN protoc object_detection/protos/*.proto --python_out=.
 
-	# Install dependencies needed for object detection
-	CMD ["export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"]
+	# Follow instructions to get object detection working
+	RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 
 	# Export password as environment variable
 	ENV PASSWORD="12345"
