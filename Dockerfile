@@ -151,8 +151,19 @@ RUN pip --no-cache-dir install \
 		protoc object_detection/protos/*.proto --python_out=. && \
 		export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slims
 
+	# Install Flask
+	RUN pip install flask
+
+	# Copy detection files
+	COPY detect_objects.py /root/
+
+	COPY detection_app.py /root/
+
 	# Export password as environment variable
 	ENV PASSWORD="12345"
 
   WORKDIR "/root"
-  CMD ["/bin/bash"]
+
+	ENTRYPOINT [ "python" ]
+
+	CMD [ "detection_app.py" ]

@@ -11,8 +11,17 @@ The extra steps come from the instructions [here](https://github.com/tensorflow/
 
 Pull the Docker image using `docker pull sethweidman/docker-object-detection`.
 
-Once pulled, run using `docker run -it -p 8898:8898 <IMAGE ID> jupyter notebook --allow-root`. This will launch a Jupyter Notebook inside the container and make available port 8898 (not 8888, to avoid conflicting with any other Jupyter Notebooks you might have running).
+Once pulled, run using `docker run -it -p 5000:5000 <IMAGE ID> python detection_app.py`. This will launch a Flask app inside the Docker container.
 
-Then, you can navigate to `http://localhost:8898` to see a Jupyter notebook with the TensorFlow object detection tutorial notebook.
+Then, from this folder, run:
 
-Finally, you can navigate to the `models/research/object_detection` folder and run the cells in the `object_detection_tutorial.ipynb` notebook.
+`python3 request_image.py test.jpg`
+
+Which will do object detection on the image you pass in.
+
+--
+
+
+
+
+Install Flask!
